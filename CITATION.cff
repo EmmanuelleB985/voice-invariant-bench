@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "VoiceInvariantBench: A Speech-to-Action Conservation Benchmark for Voice Agents"
+message: "If you use this benchmark, please cite it as below."
+type: software
+authors:
+  - family-names: "VoiceInvariantBench Contributors"
+    given-names: ""
+version: "1.1.1"
+date-released: "2026-05-27"
+license: MIT
+repository-code: "https://github.com/EmmanuelleB985/voice-invariant-bench"
+abstract: |
+  VoiceInvariantBench measures whether voice agents preserve critical
+  spoken values — dates, times, amounts, addresses, postcodes, codes —
+  from audio through to final tool-action state. The headline metric is
+  the Speech-to-Action Conservation Rate (SACR). The benchmark is
+  stack-decomposable: TTS, ASR, and agent reasoning failures can be
+  attributed separately, enabling component-level procurement decisions
+  that single-number evals cannot support.
+keywords:
+  - voice agents
+  - benchmark
+  - speech recognition
+  - tool use
+  - safety
+  - llm evaluation

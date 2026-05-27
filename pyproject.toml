@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voice-invariant-bench"
+version = "1.1.1"
+description = "A speech-to-action conservation benchmark for voice agents"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "VoiceInvariantBench Contributors"}
+]
+keywords = [
+    "voice-agents", "benchmark", "speech-recognition",
+    "tool-use", "safety", "llm-evaluation"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pydantic>=2.0",
+    "python-dateutil",
+    "word2number",
+]
+
+[project.optional-dependencies]
+# Audio stack — heavy, GPU recommended
+audio = [
+    "transformers>=4.40,<4.50",
+    "tokenizers<0.21",
+    "TTS==0.22.0",
+    "faster-whisper>=1.0",
+    "torch>=2.1",
+    "torchaudio>=2.1",
+    "audiomentations",
+    "soundfile",
+    "librosa",
+]
+# LLM client
+llm = [
+    "litellm>=1.40,<1.60",
+    "openai>=1.30",
+]
+# Demo
+demo = ["gradio>=4.20"]
+# Everything
+all = [
+    "voice-invariant-bench[audio,llm,demo]",
+]
+# Dev
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+voice-invariant-eval = "eval.score_predictions:main"
+
+[project.urls]
+Repository = "https://github.com/YOUR_USERNAME/voice-invariant-bench"
+Issues = "https://github.com/YOUR_USERNAME/voice-invariant-bench/issues"
+Changelog = "https://github.com/YOUR_USERNAME/voice-invariant-bench/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ["src", "eval"]
+
+[tool.setuptools.package-data]
+src = ["../tools/*.json"]

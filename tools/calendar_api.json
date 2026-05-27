@@ -1,0 +1,61 @@
+{
+  "tools": [
+    {
+      "name": "create_event",
+      "description": "Create a calendar event.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "duration_minutes": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "title",
+          "date",
+          "time"
+        ]
+      },
+      "state_effect": {
+        "event_created": true,
+        "event_date": "$date",
+        "event_time": "$time"
+      }
+    },
+    {
+      "name": "reschedule_appointment",
+      "description": "Reschedule an existing appointment.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "appointment_id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "time"
+        ]
+      },
+      "state_effect": {
+        "appt_date": "$date",
+        "appt_time": "$time"
+      }
+    }
+  ]
+}

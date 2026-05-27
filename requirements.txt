@@ -1,0 +1,33 @@
+# Core
+pydantic>=2.0
+python-dateutil
+word2number
+
+# TTS / ASR / audio
+TTS==0.22.0                  # Coqui XTTS-v2
+# TTS 0.22.0 only lower-bounds transformers; newer transformers (>=4.50)
+# import torch.distributed.tensor.device_mesh which doesn't exist on the
+# RunPod PyTorch 2.4 template. Pin to a known-compatible range.
+transformers>=4.33,<4.46
+faster-whisper>=1.0
+torch>=2.1
+torchaudio>=2.1
+audiomentations
+soundfile
+librosa
+
+# LLM client
+litellm>=1.40
+openai>=1.30
+
+# Pipeline / packaging
+datasets>=2.18
+huggingface-hub>=0.23
+
+# Demo + CLI
+gradio>=4.20
+requests
+
+# Dev
+pytest
+ruff

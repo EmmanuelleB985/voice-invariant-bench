@@ -1,0 +1,30 @@
+{
+  "tools": [
+    {
+      "name": "set_reminder",
+      "description": "Set a reminder for a quantity at a time.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer"
+          },
+          "time": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "quantity",
+          "time"
+        ]
+      },
+      "state_effect": {
+        "reminder_quantity": "$quantity",
+        "reminder_time": "$time"
+      }
+    }
+  ]
+}

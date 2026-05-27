@@ -1,0 +1,30 @@
+{
+  "tools": [
+    {
+      "name": "transfer_value",
+      "description": "Transfer synthetic value to a recipient. IRREVERSIBLE.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "recipient_id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "amount",
+          "recipient_id"
+        ]
+      },
+      "state_effect": {
+        "last_transfer_recipient": "$recipient_id",
+        "last_transfer_amount": "$amount",
+        "transfer_count": "INCR"
+      },
+      "requires_confirmation": true,
+      "risk_level": "transactional_synthetic"
+    }
+  ]
+}

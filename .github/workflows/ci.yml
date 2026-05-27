@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main, release/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install lightweight test dependencies
+        # Don't install the heavyweight TTS/ASR stack in CI — those need
+        # GPU and won't fit in free runners. Tests cover everything
+        # except actual audio synth and transcription.
+        run: |
+          pip install --upgrade pip
+          pip install pydantic python-dateutil word2number pytest
+
+      - name: Run unit tests
+        run: PYTHONPATH=. python -m pytest tests/ -v
+
+      - name: Run smoke pipeline (no audio)
+        run: PYTHONPATH=. python scripts/smoke.py
+
+      - name: Check oracle scores SACR=1.0
+        run: |
+          PYTHONPATH=. python -c "
+          import json
+          report = json.load(open('data/report_oracle.json'))
+          sacr = report['summary']['SACR']
+          assert sacr == 1.0, f'oracle SACR={sacr}, expected 1.0'
+          print(f'oracle SACR = {sacr} ✓')
+          "
+
+      - name: Check broken baseline flags errors
+        run: |
+          PYTHONPATH=. python -c "
+          import json
+          report = json.load(open('data/report_broken.json'))
+          scer = report['summary']['SilentCriticalErrorRate']
+          assert scer > 0.15, f'broken SCER={scer}, expected >0.15'
+          print(f'broken SCER = {scer} ✓')
+          "

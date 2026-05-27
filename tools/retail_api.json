@@ -1,0 +1,78 @@
+{
+  "tools": [
+    {
+      "name": "update_delivery_address",
+      "description": "Update the delivery address for an order.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string"
+          },
+          "street_number": {
+            "type": "integer"
+          },
+          "street_name": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "street_number",
+          "street_name"
+        ]
+      },
+      "state_effect": {
+        "street_number": "$street_number",
+        "street_name": "$street_name",
+        "postcode": "$postcode"
+      }
+    },
+    {
+      "name": "update_postcode",
+      "description": "Update only the postcode on file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "postcode"
+        ]
+      },
+      "state_effect": {
+        "postcode": "$postcode"
+      }
+    },
+    {
+      "name": "refund_order",
+      "description": "Refund an order. IRREVERSIBLE.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "amount"
+        ]
+      },
+      "state_effect": {
+        "refunded": true,
+        "refund_amount": "$amount"
+      },
+      "requires_confirmation": true
+    }
+  ]
+}

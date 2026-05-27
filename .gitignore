@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.pytest_cache/
+.coverage
+.mypy_cache/
+.ruff_cache/
+scripts/setup_runpod.sh
+
+# Virtual envs
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Benchmark data — keep code, exclude generated artifacts
+data/
+demo_data/
+results/
+*.wav
+*.mp3
+
+# Models / large downloads
+models/
+*.onnx
+*.pt
+*.safetensors
+
+# Secrets — never commit
+.envrc
+*.key
+secrets.json
+
+# HF / pod artifacts
+hf_cache/
+.cache/
+
+# Test outputs
+/tmp/
+test_output/
